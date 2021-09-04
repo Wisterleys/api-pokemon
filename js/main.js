@@ -1,3 +1,23 @@
+const mask={
+    maxmin(value){
+        // Não aceita valores fora desse intervalo
+        const min=1;
+        const max=150;
+        //--------------------------------------
+        return value.replace(/(\D)/g,"")
+        .replace(/(\d{1})/,num=>{return (num<min)?min:num})
+        .replace(/\d{3}/,num=>{
+            return num>max?max:num
+        }).replace(/(\d{3})\d+?$/,'$1')
+    }
+}
+
+document.querySelectorAll("input").forEach(e=> {
+    e.addEventListener("input",$input=>{
+        const camp=$input.target.dataset.mask
+        $input.target.value= mask[camp]($input.target.value)
+    })
+});
 function createElImg(place,name,src){
     let el = document.createElement(name)
     el.style.width="30%"
