@@ -22,14 +22,16 @@ document.querySelectorAll("input").forEach(e=> {
 function createCard(obj){
     const el = document.createElement("div")
     el.classList.add("card")
+    el.style.background = color(obj.type);
     const block_a = createElBlockA(el)
     const block_b = createElBlockA(el)
     createElImg(block_a,obj.src)
-    block_b.innerHTML=`<p class="p">Nome: ${obj.pokemon}</p>`
-    block_b.innerHTML+=`<p class="p">Tipo: ${obj.type}</p>`
+    block_b.innerHTML=`<p class="p"><b>Nome:</b> ${obj.pokemon}</p>`
+    block_b.innerHTML+=`<p class="p"><b>${obj.type.length>1?"tipos:":"tipo:"}</b> ${types(obj.type)}</p>`
     let skills="";
-    obj.skills?obj.skills.forEach(e=>skills+='<span>'+e.ability.name+'</span> '):skills=""
-    block_b.innerHTML+=`<p class="p">Habilidades:
+    obj.skills?obj.skills.forEach(e=>skills+='<span>'+e.ability.name+'</span>, '):skills=""
+    skills = removeLastComma(skills)
+    block_b.innerHTML+=`<p class="p"><b>Habilidades:</b>
     ${skills}
     </p>`
     obj.place.appendChild(el);
@@ -56,6 +58,41 @@ function createElImg(place,src){
     place.appendChild(el)
     return el;
 }
+function types(types){
+    let t="";
+    types.forEach(type=>t+=`<span>${type.type.name}</span>, `)
+    return removeLastComma(t);
+}
+function colorType(type){
+    let color = "";
+    switch(type){
+        case"grass":
+        color="rgb(45, 205, 69), "
+        break;
+        case"poison":
+        color="rgb(136, 54, 136), "
+        break
+        case"fire":
+        color="rgb(240, 128, 48)"
+        break;
+    }
+    return color;
+}
+function removeLastComma(value){
+    return value.replace(/[,][\s]{1}$/,"")
+}
+function color(types){
+    let color="";
+    if(types.length>1){
+        let background=""
+        types.forEach(type=>background+=colorType(type.type.name))
+         background= removeLastComma(background)
+        color=`linear-gradient(90deg,${background})`
+    }else{
+        color = colorType(types[0].type.name)
+    }
+    return color;
+}
 //----------------------------
 
 document.querySelector("#searchCLick").addEventListener("click",e=>{
@@ -73,7 +110,7 @@ document.querySelector("#searchCLick").addEventListener("click",e=>{
         
         createCard({
             place:div, src:pokemon.sprites.front_default,
-            pokemon:pokemon.name,type:pokemon.types[0].type.name,
+            pokemon:pokemon.name,type:pokemon.types,
             skills:pokemon.abilities
         })
     }
