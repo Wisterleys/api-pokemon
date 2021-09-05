@@ -155,7 +155,32 @@ function getPokemon(pokemonid){
             }
         })
 }
-document.addEventListener("DOMContentLoaded",e=>{
+function getOne(){
+    const div = document.querySelector("#resul");
+    const pokemonid = document.querySelector("#search").value
+    if(pokemonid>0){
+        createElImg(div,"https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif")
+        const ajax = new XMLHttpRequest();
+        ajax.open("GET",`https://pokeapi.co/api/v2/pokemon/${pokemonid}`,true)
+        ajax.send();
+
+        ajax.onload=e=>{
+            div.innerHTML=""
+            const pokemon = JSON.parse(ajax.responseText);
+            createCard({
+                place:div, src:pokemon.sprites.front_default,
+                pokemon:pokemon.name,type:pokemon.types,
+                skills:pokemon.abilities
+            })
+        }
+        ajax.onerror=err=>{
+            console.log(err)
+        }
+    }else{
+        getAll()
+    }
+}
+function getAll(){
     const pokemons=[];
     for (let index = 1; index < 899; index++) {
         pokemons.push(getPokemon(index))
@@ -175,5 +200,12 @@ document.addEventListener("DOMContentLoaded",e=>{
         })
         
     })
+}
+document.addEventListener("DOMContentLoaded",e=>{
+    
+    getAll()
+})
+document.querySelector("#searchCLick").addEventListener("click",e=>{
+    getOne();
 
 })
