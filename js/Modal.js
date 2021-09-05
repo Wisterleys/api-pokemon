@@ -17,6 +17,7 @@ class Modal{
     mainLoop(){
         let counter=0;
         const obj = JSON.parse(this.card.dataset.src)
+        console.log(obj)
         for(let key in obj){
             key!="other"&&key!="versions"?this.sprites.push(key):0
         }
@@ -40,7 +41,6 @@ class Modal{
         s.innerHTML="x"
         const img = document.createElement("img");
         img.id="centerimg";
-        img.style.width="50%"
         x.appendChild(s)
         el.appendChild(x)
         el.appendChild(img)

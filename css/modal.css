@@ -38,3 +38,7 @@
 .modal .close span{
     transform: translateY(-9%);
 }
+.modal img{
+    max-width: 350px;
+    width: 100%;
+}
