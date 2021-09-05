@@ -155,7 +155,8 @@ function getPokemon(pokemonid){
             }
         })
 }
-function getOne(){
+function getOne(btn){
+    btn.disabled=true
     const div = document.querySelector("#resul");
     const pokemonid = document.querySelector("#search").value
     if(pokemonid>0){
@@ -167,22 +168,23 @@ function getOne(){
         ajax.onload=e=>{
             div.innerHTML=""
             const pokemon = JSON.parse(ajax.responseText);
-            console.log(pokemon)
             createCard({
                 place:div, src:pokemon.sprites.front_default,
                 pokemon:pokemon.name,type:pokemon.types,
                 skills:pokemon.abilities,
                 code:pokemon.id
             })
+            btn.disabled=false
         }
         ajax.onerror=err=>{
             console.log(err)
         }
     }else{
-        getAll()
+        getAll(btn)
     }
 }
-function getAll(){
+function getAll(btn=false){
+    btn?btn.disabled=true:0
     const pokemons=[];
     for (let index = 1; index < 899; index++) {
         pokemons.push(getPokemon(index))
@@ -201,14 +203,14 @@ function getAll(){
                 code:pokemon.id
             })
         })
-        
+        btn?btn.disabled=false:0
     })
 }
 document.addEventListener("DOMContentLoaded",e=>{
     
-    getAll()
+    getAll(document.querySelector("#searchCLick"))
 })
-document.querySelector("#searchCLick").addEventListener("click",e=>{
-    getOne();
+document.querySelector("#searchCLick").addEventListener("click",function(){
+    getOne(this);
 
 })
