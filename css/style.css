@@ -11,7 +11,7 @@ html,body{
 
 }
 .card{
-    width: 150px;
+    width: 250px;
     display: flex;
     justify-content: space-around;
     background-color: rgba(137, 43, 226, 0.534);
