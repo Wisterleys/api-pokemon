@@ -1,0 +1,40 @@
+.modal{
+    visibility: visible;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 3000;
+    width: 98vw;
+    height: 100vh;
+    background-color: rgba(255,255,255,.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal.hidden{
+    visibility: hidden;
+}
+.modal .close{
+    position: absolute;
+    font-size: 100pt;
+    color: white;
+    border-radius: 360px;
+    background-color: brown;
+    width: 100px;
+    height: 100px;
+    left: 100%;
+    top: 0%;
+    transform: translateX(-100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.close:hover{
+    
+    background-color: rgb(72, 224, 131);
+   
+}
+.modal .close span{
+    transform: translateY(-9%);
+}

@@ -156,6 +156,16 @@ function getPokemon(pokemonid){
             }
         })
 }
+function clickInTheCard(){
+    const cards = document.querySelectorAll(".card")
+    if(cards.length>0){
+        cards.forEach(card=>{
+            card.addEventListener("click",function(){
+                new Modal(document.body,this)
+            })
+        })
+    }
+}
 function getOne(btn){
     btn.disabled=true
     const div = document.querySelector("#resul");
@@ -176,6 +186,7 @@ function getOne(btn){
                 code:pokemon.id
             })
             btn.disabled=false
+            clickInTheCard();
         }
         ajax.onerror=err=>{
             console.log(err)
@@ -205,6 +216,7 @@ function getAll(btn=false){
             })
         })
         btn?btn.disabled=false:0
+        clickInTheCard();
     })
 }
 document.addEventListener("DOMContentLoaded",e=>{
@@ -215,11 +227,3 @@ document.querySelector("#searchCLick").addEventListener("click",function(){
     getOne(this);
 
 })
-/* setInterval(()=>{
-    const cards = document.querySelectorAll(".card")
-    if(cards){
-        cards.forEach(card=>{
-            console.log(JSON.parse(card.dataset.src))
-        })
-    }
-},5000) */
