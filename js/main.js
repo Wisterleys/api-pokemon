@@ -227,3 +227,6 @@ document.querySelector("#searchCLick").addEventListener("click",function(){
     getOne(this);
 
 })
+document.addEventListener("keydown",e=>{
+    (e.key=="Enter")?getOne(document.querySelector("#searchCLick")):0
+})
