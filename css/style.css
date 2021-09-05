@@ -6,5 +6,24 @@ html,body{
 }
 #result{
     width: 50%;
+    display: flex;
+    flex-wrap: wrap;
 
+}
+.card{
+    width: 150px;
+    display: flex;
+    justify-content: space-around;
+    background-color: rgba(137, 43, 226, 0.534);
+}
+.block-a{
+    padding: 0px;
+    margin: 0px;
+}
+.block-b{
+    padding: 0px;
+    margin: 0px;
+}
+.block-a img{
+    width: 100%;
 }

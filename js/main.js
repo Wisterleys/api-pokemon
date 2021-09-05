@@ -18,17 +18,45 @@ document.querySelectorAll("input").forEach(e=> {
         $input.target.value= mask[camp]($input.target.value)
     })
 });
-function createElImg(place,name,src){
-    let el = document.createElement(name)
-    el.style.width="30%"
-    el.src = src;
-    place.appendChild(el);
+// Fução que cria o card completo
+function createCard(obj){
+    const el = document.createElement("div")
+    el.classList.add("card")
+    const block_a = createElBlockA(el)
+    const block_b = createElBlockA(el)
+    createElImg(block_a,obj.src)
+    block_b.innerHTML=`<p>${obj.pokemon}</p>`
+    block_b.innerHTML+=`<p>${obj.type}</p>`
+    obj.place.appendChild(el);
 }
+//---------------
+// Cria cada elemento para o card dos pokemons
+function createElBlockA(place){
+    let el = document.createElement("div")
+    el.classList.add("block-a")
+    el.style.width="50%"
+    place.appendChild(el)
+    return el;
+}
+function createElBlockB(place){
+    let el = document.createElement("div")
+    el.classList.add("block-b")
+    el.style.width="50%"
+    place.appendChild(el)
+    return el;
+}
+function createElImg(place,src){
+    let el = document.createElement("img")
+    el.src = src;
+    place.appendChild(el)
+    return el;
+}
+//----------------------------
 
 document.querySelector("#searchCLick").addEventListener("click",e=>{
     const div = document.querySelector("#resul");
     const pokemonid = document.querySelector("#search").value
-    createElImg(div,"img","https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif")
+    createElImg(div,"https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif")
     const ajax = new XMLHttpRequest();
     ajax.open("GET",`https://pokeapi.co/api/v2/pokemon/${pokemonid}`,true)
     ajax.send();
@@ -36,9 +64,12 @@ document.querySelector("#searchCLick").addEventListener("click",e=>{
     ajax.onload=e=>{
         div.innerHTML=""
         const pokemon = JSON.parse(ajax.responseText);
-        pokemon.sprites.front_default
-        pokemon.types[0].type.name
-        createElImg(div,"img", pokemon.sprites.front_default)
+        console.log(pokemon,pokemon.types[0].type.name)
+        
+        createCard({
+            place:div, src:pokemon.sprites.front_default,
+            pokemon:pokemon.name,type:pokemon.types[0].type.name
+        })
     }
     ajax.onerror=err=>{
         console.log(err)
