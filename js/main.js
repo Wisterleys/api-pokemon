@@ -21,11 +21,13 @@ document.querySelectorAll("input").forEach(e=> {
 // Fução que cria o card completo
 function createCard(obj){
     const el = document.createElement("div")
+    el.dataset.src=JSON.stringify(obj.src)
     el.classList.add("card")
     el.style.background = color(obj.type);
     const block_a = createElBlockA(el)
     const block_b = createElBlockA(el)
-    createElImg(block_a,obj.src)
+    createElImg(block_a,obj.src.other.dream_world.front_default?
+        obj.src.other.dream_world.front_default:obj.src.front_default)
     block_b.innerHTML=`<p class="p"><b>Name<br></b> ${obj.pokemon}-${obj.code}</p>`
     block_b.innerHTML+=`<p class="p"><b>${obj.type.length>1?"Types":"Type"}</b><br> ${types(obj.type)}</p>`
     let skills="";
@@ -169,7 +171,7 @@ function getOne(btn){
             div.innerHTML=""
             const pokemon = JSON.parse(ajax.responseText);
             createCard({
-                place:div, src:pokemon.sprites.front_default,
+                place:div, src:pokemon.sprites,
                 pokemon:pokemon.name,type:pokemon.types,
                 skills:pokemon.abilities,
                 code:pokemon.id
@@ -197,7 +199,7 @@ function getAll(btn=false){
         res.forEach(pok=>{
             const pokemon = JSON.parse(pok);
             createCard({
-                place:div, src:pokemon.sprites.front_default,
+                place:div, src:pokemon.sprites,
                 pokemon:pokemon.name,type:pokemon.types,
                 skills:pokemon.abilities,
                 code:pokemon.id
@@ -214,3 +216,11 @@ document.querySelector("#searchCLick").addEventListener("click",function(){
     getOne(this);
 
 })
+/* setInterval(()=>{
+    const cards = document.querySelectorAll(".card")
+    if(cards){
+        cards.forEach(card=>{
+            console.log(JSON.parse(card.dataset.src))
+        })
+    }
+},5000) */
