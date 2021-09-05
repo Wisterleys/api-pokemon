@@ -25,8 +25,13 @@ function createCard(obj){
     const block_a = createElBlockA(el)
     const block_b = createElBlockA(el)
     createElImg(block_a,obj.src)
-    block_b.innerHTML=`<p>${obj.pokemon}</p>`
-    block_b.innerHTML+=`<p>${obj.type}</p>`
+    block_b.innerHTML=`<p class="p">Nome: ${obj.pokemon}</p>`
+    block_b.innerHTML+=`<p class="p">Tipo: ${obj.type}</p>`
+    let skills="";
+    obj.skills?obj.skills.forEach(e=>skills+='<span>'+e.ability.name+'</span> '):skills=""
+    block_b.innerHTML+=`<p class="p">Habilidades:
+    ${skills}
+    </p>`
     obj.place.appendChild(el);
 }
 //---------------
@@ -68,7 +73,8 @@ document.querySelector("#searchCLick").addEventListener("click",e=>{
         
         createCard({
             place:div, src:pokemon.sprites.front_default,
-            pokemon:pokemon.name,type:pokemon.types[0].type.name
+            pokemon:pokemon.name,type:pokemon.types[0].type.name,
+            skills:pokemon.abilities
         })
     }
     ajax.onerror=err=>{

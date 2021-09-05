@@ -11,9 +11,8 @@ html,body{
 
 }
 .card{
-    width: 250px;
+    width: 300px;
     display: flex;
-    justify-content: space-around;
     background-color: rgba(137, 43, 226, 0.534);
 }
 .block-a{
@@ -26,4 +25,8 @@ html,body{
 }
 .block-a img{
     width: 100%;
+}
+.p{
+    font-family: 'Courier New', Courier, monospace;
+    padding: 10px;
 }
