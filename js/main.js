@@ -73,8 +73,50 @@ function colorType(type){
         color="rgb(136, 54, 136), "
         break
         case"fire":
-        color="rgb(240, 128, 48)"
+        color="rgb(240, 128, 48), "
         break;
+        case"flying":
+        color="rgb(168, 144, 240), "
+        break;
+        case"water":
+        color="rgb(20, 158, 255), "
+        break;
+        case"bug":
+        color="rgb(168, 184, 32), "
+        break
+        case"normal":
+        color="rgb(168, 168, 120), "
+        break
+        case"electric":
+        color="rgb(248, 208, 48), "
+        break
+        case"ground":
+        color="rgb(224, 192, 104), "
+        break
+        case"fairy":
+        color="rgb(238, 153, 172), "
+        break
+        case"fighting":
+        color="rgb(148, 53, 45), "
+        break
+        case"psychic":
+        color="rgb(255, 105, 150), "
+        break
+        case"rock":
+        color="rgb(184, 160, 56), "
+        break
+        case"steel":
+        color="rgb(184, 184, 208), "
+        break
+        case"ice":
+        color="rgb(152, 216, 216), "
+        break
+        case"ghost":
+        color="rgb(97, 76, 131), "
+        break
+        case"dark":
+        color="rgb(92, 72, 59), "
+        break
     }
     return color;
 }
@@ -89,7 +131,7 @@ function color(types){
          background= removeLastComma(background)
         color=`linear-gradient(90deg,${background})`
     }else{
-        color = colorType(types[0].type.name)
+        color = removeLastComma(colorType(types[0].type.name))
     }
     return color;
 }

@@ -13,7 +13,6 @@ html,body{
 .card{
     width: 300px;
     display: flex;
-    background-color: rgba(137, 43, 226, 0.534);
 }
 .block-a{
     padding: 0px;
