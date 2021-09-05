@@ -169,7 +169,6 @@ function getOne(btn){
         ajax.onload=e=>{
             div.innerHTML=""
             const pokemon = JSON.parse(ajax.responseText);
-            console.log(pokemon)
             createCard({
                 place:div, src:pokemon.sprites,
                 pokemon:pokemon.name,type:pokemon.types,
