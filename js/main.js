@@ -26,8 +26,7 @@ function createCard(obj){
     el.style.background = color(obj.type);
     const block_a = createElBlockA(el)
     const block_b = createElBlockA(el)
-    createElImg(block_a,obj.src.other.dream_world.front_default?
-        obj.src.other.dream_world.front_default:obj.src.front_default)
+    createElImg(block_a,obj.src.other["official-artwork"].front_default)
     block_b.innerHTML=`<p class="p"><b>Name<br></b> ${obj.pokemon}-${obj.code}</p>`
     block_b.innerHTML+=`<p class="p"><b>${obj.type.length>1?"Types":"Type"}</b><br> ${types(obj.type)}</p>`
     let skills="";
@@ -170,6 +169,7 @@ function getOne(btn){
         ajax.onload=e=>{
             div.innerHTML=""
             const pokemon = JSON.parse(ajax.responseText);
+            console.log(pokemon)
             createCard({
                 place:div, src:pokemon.sprites,
                 pokemon:pokemon.name,type:pokemon.types,
