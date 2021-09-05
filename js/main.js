@@ -122,7 +122,7 @@ function colorType(type){
         color="rgb(112, 10, 238), "
         break
     }
-    return color;
+    return color.replace(/([\)])/,",.5$1");
 }
 function removeLastComma(value){
     return value.replace(/[,][\s]{1}$/,"")
