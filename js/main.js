@@ -117,6 +117,9 @@ function colorType(type){
         case"dark":
         color="rgb(92, 72, 59), "
         break
+        case"dragon":
+        color="rgb(112, 10, 238), "
+        break
     }
     return color;
 }
@@ -136,28 +139,41 @@ function color(types){
     return color;
 }
 //----------------------------
+function getPokemon(pokemonid){
+    return new Promise((res,rec)=>{
+            const div = document.querySelector("#resul");
+            createElImg(div,"https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif")
+            const ajax = new XMLHttpRequest();
+            ajax.open("GET",`https://pokeapi.co/api/v2/pokemon/${pokemonid}`,true)
+            ajax.send();
 
-document.querySelector("#searchCLick").addEventListener("click",e=>{
-    const div = document.querySelector("#resul");
-    const pokemonid = document.querySelector("#search").value
-    createElImg(div,"https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif")
-    const ajax = new XMLHttpRequest();
-    ajax.open("GET",`https://pokeapi.co/api/v2/pokemon/${pokemonid}`,true)
-    ajax.send();
-
-    ajax.onload=e=>{
-        div.innerHTML=""
-        const pokemon = JSON.parse(ajax.responseText);
-        console.log(pokemon,pokemon.types[0].type.name)
-        
-        createCard({
-            place:div, src:pokemon.sprites.front_default,
-            pokemon:pokemon.name,type:pokemon.types,
-            skills:pokemon.abilities
+            ajax.onload=e=>{
+                res(ajax.responseText)
+            }
+            ajax.onerror=err=>{
+                rec(err)
+            }
         })
+}
+document.addEventListener("DOMContentLoaded",e=>{
+    const pokemons=[];
+    for (let index = 1; index < 899; index++) {
+        pokemons.push(getPokemon(index))
+        
     }
-    ajax.onerror=err=>{
-        console.log(err)
-    }
+    Promise.all(pokemons)
+    .then(res=>{
+        const div = document.querySelector("#resul");
+        div.innerHTML=""
+        res.forEach(pok=>{
+            const pokemon = JSON.parse(pok);
+            createCard({
+                place:div, src:pokemon.sprites.front_default,
+                pokemon:pokemon.name,type:pokemon.types,
+                skills:pokemon.abilities
+            })
+        })
+        
+    })
 
 })

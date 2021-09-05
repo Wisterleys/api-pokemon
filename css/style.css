@@ -12,8 +12,8 @@ header{
     width: 50%;
     margin: 5px auto;
 }
-#result{
-    width: 50%;
+#resul{
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
     grid-template-rows: 1fr;
