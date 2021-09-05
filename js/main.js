@@ -26,12 +26,12 @@ function createCard(obj){
     const block_a = createElBlockA(el)
     const block_b = createElBlockA(el)
     createElImg(block_a,obj.src)
-    block_b.innerHTML=`<p class="p"><b>Name:</b> ${obj.pokemon}</p>`
-    block_b.innerHTML+=`<p class="p"><b>${obj.type.length>1?"Types:":"Type:"}</b> ${types(obj.type)}</p>`
+    block_b.innerHTML=`<p class="p"><b>Name<br></b> ${obj.pokemon}-${obj.code}</p>`
+    block_b.innerHTML+=`<p class="p"><b>${obj.type.length>1?"Types":"Type"}</b><br> ${types(obj.type)}</p>`
     let skills="";
     obj.skills?obj.skills.forEach(e=>skills+='<span>'+e.ability.name+'</span>, '):skills=""
     skills = removeLastComma(skills)
-    block_b.innerHTML+=`<p class="p"><b>${obj.skills.length>1?"Skills:":"Skill:"}</b>
+    block_b.innerHTML+=`<p class="p"><b>${obj.skills.length>1?"Skills":"Skill"}</b><br>
     ${skills}
     </p>`
     obj.place.appendChild(el);
@@ -167,10 +167,12 @@ function getOne(){
         ajax.onload=e=>{
             div.innerHTML=""
             const pokemon = JSON.parse(ajax.responseText);
+            console.log(pokemon)
             createCard({
                 place:div, src:pokemon.sprites.front_default,
                 pokemon:pokemon.name,type:pokemon.types,
-                skills:pokemon.abilities
+                skills:pokemon.abilities,
+                code:pokemon.id
             })
         }
         ajax.onerror=err=>{
@@ -195,7 +197,8 @@ function getAll(){
             createCard({
                 place:div, src:pokemon.sprites.front_default,
                 pokemon:pokemon.name,type:pokemon.types,
-                skills:pokemon.abilities
+                skills:pokemon.abilities,
+                code:pokemon.id
             })
         })
         
