@@ -3,24 +3,23 @@ class Modal{
         this.place = place;
         this.card = card;
         this.loop;
+        this.sprites=[];
         this.el = this.tamplate(this.place)
         this.mainLoop()
-        this.sprites=[
-            'back_default','back_female',
-            'back_shiny','back_shiny_female',
-            'front_default','front_female',
-            'front_shiny','front_shiny_female'
-        ]
     }
     close(x){
         x.addEventListener("click",e=>{
             clearInterval(this.loop)
+            this.sprites=[]
             this.el[0].remove()
         })
     }
     mainLoop(){
         let counter=0;
         const obj = JSON.parse(this.card.dataset.src)
+        for(let key in obj){
+            key!="other"&&key!="versions"?this.sprites.push(key):0
+        }
         this.close(this.el[1])
         this.loop = setInterval(()=>{
             let v = obj[this.sprites[counter]]?true:false
