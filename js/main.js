@@ -26,12 +26,12 @@ function createCard(obj){
     const block_a = createElBlockA(el)
     const block_b = createElBlockA(el)
     createElImg(block_a,obj.src)
-    block_b.innerHTML=`<p class="p"><b>Nome:</b> ${obj.pokemon}</p>`
-    block_b.innerHTML+=`<p class="p"><b>${obj.type.length>1?"tipos:":"tipo:"}</b> ${types(obj.type)}</p>`
+    block_b.innerHTML=`<p class="p"><b>Name:</b> ${obj.pokemon}</p>`
+    block_b.innerHTML+=`<p class="p"><b>${obj.type.length>1?"Types:":"Type:"}</b> ${types(obj.type)}</p>`
     let skills="";
     obj.skills?obj.skills.forEach(e=>skills+='<span>'+e.ability.name+'</span>, '):skills=""
     skills = removeLastComma(skills)
-    block_b.innerHTML+=`<p class="p"><b>Habilidades:</b>
+    block_b.innerHTML+=`<p class="p"><b>${obj.skills.length>1?"Skills:":"Skill:"}</b>
     ${skills}
     </p>`
     obj.place.appendChild(el);

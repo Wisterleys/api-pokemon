@@ -1,13 +1,23 @@
 html,body{
     margin: 0px;
     padding: 0px;
-    width: 100vw;
+    width: 95vw;
     height: 100vh;
+}
+main{
+    width: 90%;
+    margin: auto;
+}
+header{
+    width: 50%;
+    margin: 5px auto;
 }
 #result{
     width: 50%;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+    grid-template-rows: 1fr;
+    grid-gap: 20px;
 
 }
 .card{
