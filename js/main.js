@@ -190,6 +190,21 @@ function getOne(btn){
         getAll(btn)
     }
 }
+function pages(place,data,i){
+    /*
+    <button id="page"></button>
+    */
+   const button = document.createElement("button");
+   button.dataset.data = data
+   button.classList.add("page");
+   button.innerHTML=i
+   place.appendChild(button)
+}
+function imp(tag=false){
+    if(tag){
+        
+    }
+}
 function getAll(btn=false){
     btn?btn.disabled=true:0
     const pokemons=[];
@@ -201,14 +216,18 @@ function getAll(btn=false){
     .then(res=>{
         const div = document.querySelector("#resul");
         div.innerHTML=""
+        let count=1
+        let page_count=1
+        let data =[]
         res.forEach(pok=>{
-            const pokemon = JSON.parse(pok);
-            createCard({
-                place:div, src:pokemon.sprites,
-                pokemon:pokemon.name,type:pokemon.types,
-                skills:pokemon.abilities,
-                code:pokemon.id
-            })
+            data.push(pok)
+            if(count>8){
+                pages(document.querySelector("#pages"),data,page_count)
+                data=[]
+                count=1
+                page_count++
+            }
+            count++
         })
         btn?btn.disabled=false:0
         clickInTheCard();
