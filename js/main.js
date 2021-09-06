@@ -168,6 +168,7 @@ function clickInTheCard(){
 }
 function getOne(btn){
     btn.disabled=true
+    document.querySelector("#pages").innerHTML=""
     const div = document.querySelector("#resul");
     const pokemonid = document.querySelector("#search").value
     if(pokemonid>0){
@@ -195,15 +196,31 @@ function pages(place,data,i){
     <button id="page"></button>
     */
    const button = document.createElement("button");
-   button.dataset.data = data
+   button.dataset.data = JSON.stringify(data)
    button.classList.add("page");
    button.innerHTML=i
    place.appendChild(button)
 }
-function imp(tag=false){
-    if(tag){
-        
-    }
+function allImp(){
+    document.querySelectorAll(".page").forEach(page=>{
+        page.addEventListener("click",function(){
+            document.querySelector("#resul").innerHTML=""
+            imp(this)
+        })
+    })
+}
+function imp(button){
+    const pokemon = JSON.parse(button.dataset.data);
+    const div = document.querySelector("#resul");//Local da impressao dos cards
+        pokemon.forEach(pok=>{
+            createCard({
+                place:div, src:pok.sprites,
+                pokemon:pok.name,type:pok.types,
+                skills:pok.abilities,
+                code:pok.id
+            })
+        })
+   
 }
 function getAll(btn=false){
     btn?btn.disabled=true:0
@@ -220,6 +237,7 @@ function getAll(btn=false){
         let page_count=1
         let data =[]
         res.forEach(pok=>{
+            pok = JSON.parse(pok)
             data.push(pok)
             if(count>8){
                 pages(document.querySelector("#pages"),data,page_count)
@@ -231,6 +249,8 @@ function getAll(btn=false){
         })
         btn?btn.disabled=false:0
         clickInTheCard();
+        imp(document.querySelector(".page"))
+        allImp();
     })
 }
 document.addEventListener("DOMContentLoaded",e=>{
