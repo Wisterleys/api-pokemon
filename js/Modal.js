@@ -17,7 +17,6 @@ class Modal{
     mainLoop(){
         let counter=0;
         const obj = JSON.parse(this.card.dataset.src)
-        console.log(obj)
         for(let key in obj){
             key!="other"&&key!="versions"?this.sprites.push(key):0
         }

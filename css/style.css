@@ -1,7 +1,10 @@
 @import url("modal.css");
 html{
     
-    background:linear-gradient(-90deg,rgb(43, 40, 40),white) 
+    background:url("../img/all.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 body{
     margin: 0px;

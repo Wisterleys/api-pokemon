@@ -122,7 +122,7 @@ function colorType(type){
         color="rgb(112, 10, 238), "
         break
     }
-    return color.replace(/([\)])/,",.5$1");
+    return color;//.replace(/([\)])/,",.5$1");
 }
 function removeLastComma(value){
     return value.replace(/[,][\s]{1}$/,"")
@@ -172,13 +172,10 @@ function getOne(btn){
     const pokemonid = document.querySelector("#search").value
     if(pokemonid>0){
         createElImg(div,"https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif")
-        const ajax = new XMLHttpRequest();
-        ajax.open("GET",`https://pokeapi.co/api/v2/pokemon/${pokemonid}`,true)
-        ajax.send();
-
-        ajax.onload=e=>{
+        getPokemon(pokemonid)
+        .then(res=>{
             div.innerHTML=""
-            const pokemon = JSON.parse(ajax.responseText);
+            const pokemon = JSON.parse(res);
             createCard({
                 place:div, src:pokemon.sprites,
                 pokemon:pokemon.name,type:pokemon.types,
@@ -187,10 +184,8 @@ function getOne(btn){
             })
             btn.disabled=false
             clickInTheCard();
-        }
-        ajax.onerror=err=>{
-            console.log(err)
-        }
+        })
+        .catch(err=>console.log(err))
     }else{
         getAll(btn)
     }
