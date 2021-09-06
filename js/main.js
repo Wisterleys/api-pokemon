@@ -1,3 +1,5 @@
+const total_pages = 20;
+
 const mask={
     maxmin(value){
         // Não aceita valores fora desse intervalo
@@ -239,7 +241,7 @@ function getAll(btn=false){
         res.forEach(pok=>{
             pok = JSON.parse(pok)
             data.push(pok)
-            if(count>8){
+            if(count>total_pages){
                 pages(document.querySelector("#pages"),data,page_count)
                 data=[]
                 count=1

@@ -51,9 +51,16 @@ header{
     font-family: 'Courier New', Courier, monospace;
     padding: 10px;
 }
+.page{
+    width: 50px;
+}
 #pages{
-    position: fixed;
-    bottom: 0px;
+   /*  position: fixed;
+    bottom: 0px; */
     width: 100%;
     overflow-x: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
