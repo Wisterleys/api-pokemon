@@ -1,3 +1,4 @@
+@import url("modal.css");
 @font-face {
     font-family: "poke-hollow";
     src: url("../fontes/Pokemon/Hollow.ttf");
@@ -6,7 +7,7 @@
     font-family: "poke-s";
     src: url("../fontes/Pokemon/Solid.ttf");
 }
-@import url("modal.css");
+
 html{
     background-image: linear-gradient( 94.3deg,  rgba(26,33,64,1) 10.9%, rgba(81,84,115,1) 87.1% );
     background-size: cover;
