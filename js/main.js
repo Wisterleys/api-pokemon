@@ -1,5 +1,28 @@
-const total_pages = 9;
 
+const OBJ={
+    size:898,// QUANTIDADE TOTAL DE CARDS
+    from:1,
+    to:9,
+    interval:9// TOTAL DE CARD EM CADA PAGINA
+}
+function calcPages(){
+     return OBJ.from+OBJ.interval>OBJ.size?OBJ.size:OBJ.to+OBJ.interval
+}
+function impToButtons(){
+    data={}
+    let page_counter=1
+    for (let index = 1; index <= OBJ.size; index++) {
+            if(index>=OBJ.to){
+                data.from = OBJ.from
+                data.to = OBJ.to
+                pages(document.querySelector("#pages"),data,page_counter)
+                data={}
+                page_counter++
+                OBJ.from=index;
+                OBJ.to= calcPages()
+            } 
+    }
+}
 const mask={
     maxmin(value){
         // Não aceita valores fora desse intervalo
@@ -203,32 +226,31 @@ function pages(place,data,i){
    button.innerHTML=i
    place.appendChild(button)
 }
-function allImp(){
+function btnImp(){//Ao clicar em cada botão da paginação essa funcão será acionada
     document.querySelectorAll(".page").forEach(page=>{
         page.addEventListener("click",function(){
             document.querySelector("#resul").innerHTML=""
-            imp(this)
+            const data = JSON.parse(this.dataset.data)
+            getAll(data)
             scrollTo(0,0)
         })
     })
 }
-function imp(button){
-    const pokemon = JSON.parse(button.dataset.data);
+function imp(pokemon){
+    pokemon = JSON.parse(pokemon)
     const div = document.querySelector("#resul");//Local da impressao dos cards
-        pokemon.forEach(pok=>{
-            createCard({
-                place:div, src:pok.sprites,
-                pokemon:pok.name,type:pok.types,
-                skills:pok.abilities,
-                code:pok.id
-            })
-        })
+    createCard({
+        place:div, src: pokemon.sprites,
+        pokemon: pokemon.name,type: pokemon.types,
+        skills: pokemon.abilities,
+        code: pokemon.id
+    })
    
 }
-function getAll(btn=false){
+function getAll(obj,btn=false){
     btn?btn.disabled=true:0
     const pokemons=[];
-    for (let index = 1; index < 899; index++) {
+    for (let index = obj.from; index <= obj.to; index++) {
         pokemons.push(getPokemon(index))
         
     }
@@ -236,29 +258,19 @@ function getAll(btn=false){
     .then(res=>{
         const div = document.querySelector("#resul");
         div.innerHTML=""
-        let count=1
-        let page_count=1
-        let data =[]
         res.forEach(pok=>{
-            pok = JSON.parse(pok)
-            data.push(pok)
-            if(count>total_pages){
-                pages(document.querySelector("#pages"),data,page_count)
-                data=[]
-                count=1
-                page_count++
-            }
-            count++
+            imp(pok)
         })
         btn?btn.disabled=false:0
         clickInTheCard();
-        imp(document.querySelector(".page"))
-        allImp();
+        //imp(document.querySelector(".page"))
+        //allImp();
     })
 }
 document.addEventListener("DOMContentLoaded",e=>{
-    
-    getAll(document.querySelector("#searchCLick"))
+    impToButtons();
+    btnImp();
+    getAll({from:1,to:9},document.querySelector("#searchCLick"))
 })
 document.querySelector("#searchCLick").addEventListener("click",function(){
     getOne(this);
