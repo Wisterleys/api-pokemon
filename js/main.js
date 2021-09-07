@@ -76,13 +76,12 @@ function visibilityControl(num){
     })
     firstAndLast()
 }
-function start(){
-    impToButtons();
-    btnImp();
-    visibilityControl(1)
+function btnColor(btns){
+    btns.forEach(btn=>{
+        btn.classList.remove("selects")
+        btn.classList.add("no-selects")
+    })
 }
-//-------------------------------------------
-
 function btnImp(){//Ao clicar em cada botão da paginação essa funcão será acionada
     document.querySelectorAll(".page").forEach(page=>{
         page.addEventListener("click",function(){
@@ -91,10 +90,21 @@ function btnImp(){//Ao clicar em cada botão da paginação essa funcão será a
             getAll(data)
             scrollTo(0,0)
             visibilityControl(this.innerHTML)
+            btnColor(document.querySelectorAll(".page"));
             firstAndLast()
+            this.classList.remove("no-selects")
+            this.classList.add("selects")
         })
     })
 }
+function start(){
+    impToButtons();
+    btnImp();
+    visibilityControl(1)
+    btnColor(document.querySelectorAll(".page"));
+}
+//-------------------------------------------
+
 
 // Fução que cria o card completo
 function createCard(obj){
