@@ -62,7 +62,7 @@ function firstAndLast(){
 }
 function visibilityControl(num){
     let num1 = parseInt(num)
-    let vl=[num1-1,num1,num1+1]
+    let vl=[num1-1,num1,num1+1,num1+2]//Quantidade de paginação aparecerá, ou seja, quanditade de botões que serão visiveis
     document.querySelectorAll(".page").forEach(btn=>{
         if(vl.indexOf(parseInt(btn.innerHTML))<0){
             btn.classList.add("hidde")
