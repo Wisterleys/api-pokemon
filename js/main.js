@@ -261,7 +261,7 @@ function getOne(btn){
         })
         .catch(err=>console.log(err))
     }else{
-        getAll(btn)
+        getAll({from:1,to:9},btn)
     }
 }
 
