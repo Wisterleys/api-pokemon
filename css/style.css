@@ -1,9 +1,10 @@
 @import url("modal.css");
 html{
-    
-    background-image: url("../img/all.svg");
+    background-image: linear-gradient( 94.3deg,  rgba(26,33,64,1) 10.9%, rgba(81,84,115,1) 87.1% );
     background-size: cover;
-    background-attachment: fixed; 
+    background-attachment: fixed;
+
+    
 }
 body{
     margin: 0px;
@@ -53,6 +54,8 @@ header inpu[type="image"]{
 }
 .card{
     width: 300px;
+    box-shadow: 0px 0px 5px rgb(255, 255, 255);
+    border-radius: 10px;
     display: flex;
 }
 .block-a{
