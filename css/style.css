@@ -52,7 +52,18 @@ header{
     padding: 10px;
 }
 .page{
+    display: block;
     width: 50px;
+}
+.page.hidde{
+   display: none;
+}
+
+.page.last::before{
+    content: "...";
+}
+.page.first::after{
+    content: "...";
 }
 #pages{
     position: fixed;

@@ -1,28 +1,4 @@
 
-const OBJ={
-    size:898,// QUANTIDADE TOTAL DE CARDS
-    from:1,
-    to:9,
-    interval:9// TOTAL DE CARD EM CADA PAGINA
-}
-function calcPages(){
-     return OBJ.from+OBJ.interval>OBJ.size?OBJ.size:OBJ.to+OBJ.interval
-}
-function impToButtons(){
-    data={}
-    let page_counter=1
-    for (let index = 1; index <= OBJ.size; index++) {
-            if(index>=OBJ.to){
-                data.from = OBJ.from
-                data.to = OBJ.to
-                pages(document.querySelector("#pages"),data,page_counter)
-                data={}
-                page_counter++
-                OBJ.from=index;
-                OBJ.to= calcPages()
-            } 
-    }
-}
 const mask={
     maxmin(value){
         // Não aceita valores fora desse intervalo
@@ -43,6 +19,78 @@ document.querySelectorAll("input").forEach(e=> {
         $input.target.value= mask[camp]($input.target.value)
     })
 });
+//--------------------------------------------------------------
+
+//Botões da paginação
+const OBJ={
+    size:898,// QUANTIDADE TOTAL DE CARDS
+    from:1,// VALOR INICIAL
+    to:9,// VALOR INICIAL
+    interval:9// TOTAL DE CARD EM CADA PAGINA
+}
+function calcPages(){
+     return OBJ.from+OBJ.interval>OBJ.size?OBJ.size:OBJ.to+OBJ.interval
+}
+function impToButtons(){
+    data={}
+    let page_counter=1
+    for (let index = 1; index <= OBJ.size; index++) {
+            if(index>=OBJ.to){
+                data.from = OBJ.from
+                data.to = OBJ.to
+                pages(document.querySelector("#pages"),data,page_counter)
+                data={}
+                page_counter++
+                OBJ.from=index;
+                OBJ.to= calcPages()
+            } 
+    }
+}
+function pages(place,data,i){
+    /*
+    <button id="page"></button>
+    */
+   const button = document.createElement("button");
+   button.dataset.data = JSON.stringify(data)
+   button.classList.add("page");
+   button.innerHTML=i
+   place.appendChild(button)
+}
+function firstAndLast(){
+    document.querySelectorAll(".page")[document.querySelectorAll(".page").length-1].classList.remove("hidde")
+    document.querySelectorAll(".page")[0].classList.remove("hidde")
+}
+function visibilityControl(num){
+    let num1 = parseInt(num)
+    let vl=[num1-1,num1,num1+1]
+    document.querySelectorAll(".page").forEach(btn=>{
+        if(vl.indexOf(parseInt(btn.innerHTML))<0){
+            btn.classList.add("hidde")
+            document.querySelectorAll(".page")[document.querySelectorAll(".page").length-1].classList.add("last")
+        }else{
+            btn.classList.remove("hidde")
+            btn.classList.remove("last")
+            btn.classList.remove("first")
+        }
+        num1>3?document.querySelectorAll(".page")[0].classList.add("first"):document.querySelectorAll(".page")[0].classList.remove("first")
+    })
+    firstAndLast()
+}
+//-------------------------------------------
+
+function btnImp(){//Ao clicar em cada botão da paginação essa funcão será acionada
+    document.querySelectorAll(".page").forEach(page=>{
+        page.addEventListener("click",function(){
+            document.querySelector("#resul").innerHTML=""
+            const data = JSON.parse(this.dataset.data)
+            getAll(data)
+            scrollTo(0,0)
+            visibilityControl(this.innerHTML)
+            firstAndLast()
+        })
+    })
+}
+
 // Fução que cria o card completo
 function createCard(obj){
     const el = document.createElement("div")
@@ -216,26 +264,7 @@ function getOne(btn){
         getAll(btn)
     }
 }
-function pages(place,data,i){
-    /*
-    <button id="page"></button>
-    */
-   const button = document.createElement("button");
-   button.dataset.data = JSON.stringify(data)
-   button.classList.add("page");
-   button.innerHTML=i
-   place.appendChild(button)
-}
-function btnImp(){//Ao clicar em cada botão da paginação essa funcão será acionada
-    document.querySelectorAll(".page").forEach(page=>{
-        page.addEventListener("click",function(){
-            document.querySelector("#resul").innerHTML=""
-            const data = JSON.parse(this.dataset.data)
-            getAll(data)
-            scrollTo(0,0)
-        })
-    })
-}
+
 function imp(pokemon){
     pokemon = JSON.parse(pokemon)
     const div = document.querySelector("#resul");//Local da impressao dos cards
@@ -270,6 +299,7 @@ function getAll(obj,btn=false){
 document.addEventListener("DOMContentLoaded",e=>{
     impToButtons();
     btnImp();
+    visibilityControl(1)
     getAll({from:1,to:9},document.querySelector("#searchCLick"))
 })
 document.querySelector("#searchCLick").addEventListener("click",function(){
