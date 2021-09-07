@@ -1,4 +1,4 @@
-const total_pages = 20;
+const total_pages = 9;
 
 const mask={
     maxmin(value){
@@ -208,6 +208,7 @@ function allImp(){
         page.addEventListener("click",function(){
             document.querySelector("#resul").innerHTML=""
             imp(this)
+            scrollTo(0,0)
         })
     })
 }
