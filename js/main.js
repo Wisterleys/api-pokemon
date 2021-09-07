@@ -76,6 +76,11 @@ function visibilityControl(num){
     })
     firstAndLast()
 }
+function start(){
+    impToButtons();
+    btnImp();
+    visibilityControl(1)
+}
 //-------------------------------------------
 
 function btnImp(){//Ao clicar em cada botão da paginação essa funcão será acionada
@@ -241,7 +246,6 @@ function clickInTheCard(){
 }
 function getOne(btn){
     btn.disabled=true
-    document.querySelector("#pages").innerHTML=""
     const div = document.querySelector("#resul");
     const pokemonid = document.querySelector("#search").value
     if(pokemonid>0){
@@ -297,9 +301,7 @@ function getAll(obj,btn=false){
     })
 }
 document.addEventListener("DOMContentLoaded",e=>{
-    impToButtons();
-    btnImp();
-    visibilityControl(1)
+    start()
     getAll({from:1,to:9},document.querySelector("#searchCLick"))
 })
 document.querySelector("#searchCLick").addEventListener("click",function(){
