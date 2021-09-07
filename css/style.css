@@ -23,6 +23,26 @@ main{
 header{
     width: 50%;
     margin: 5px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+header inpu[type="image"]{
+    width: 100%;
+}
+#searchCLick{
+    background-color: white;
+    border-radius: 0px 19px 19px 0px;
+    height: 50px;
+}
+#search{
+    padding: 10px;
+    border-radius: 19px 0px 0px 19px;
+    height: 50px;
+    text-align: center;
+    background-color: white;
+    outline: none;
+    border: none;
 }
 #resul{
     width: 100%;
