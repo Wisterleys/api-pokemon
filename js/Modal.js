@@ -20,6 +20,8 @@ class Modal{
         for(let key in obj){
             key!="other"&&key!="versions"?this.sprites.push(key):0
         }
+        this.el[0].style.background=`url("${obj.other.dream_world.front_default?obj.other.dream_world.front_default:obj.other["official-artwork"].front_default}")0% 0% / 100% 100%`
+
         this.close(this.el[1])
         this.loop = setInterval(()=>{
             let v = obj[this.sprites[counter]]?true:false
